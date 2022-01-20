@@ -60,6 +60,9 @@ class Person {
   }
 }
 
+const john = new Person('John', 25);
+console.log('task 1', john.toString());
+
 /*
   TASK 2
     - Write a Car class whose constructor initializes `model` and `milesPerGallon` from arguments.
@@ -99,7 +102,7 @@ class Car {
 
 const audi = new Car('R8', 20);
 audi.fill(20);
-console.log(audi);
+console.log('task 2', audi);
 console.log(audi.drive(401));
 console.log(audi);
 
@@ -126,6 +129,14 @@ class Lambdasian {
   }
 }
 
+const josh = new Lambdasian({
+  name: 'Josh',
+  age: 27,
+  location: 'New York'
+});
+
+console.log('task 3', josh.speak());
+
 /*
   TASK 4
     - Write an Instructor class extending Lambdasian.
@@ -140,9 +151,35 @@ class Lambdasian {
         + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
         + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
 */
-class Instructor {
-
+class Instructor extends Lambdasian {
+  constructor(obj) {
+    super(obj);
+    this.specialty = obj.specialty;
+    this.favLanguage = obj.favLanguage;
+    this.catchPhrase = obj.catchPhrase;
+  }
+  demo(subject) {
+    return `Today we are learning about ${subject}.`;
+  }
+  grade(student, subject) {
+    return `${student.name} receives a perfect score on ${subject}.`;
+  }
 }
+
+const brit = new Instructor({
+  name: 'Brit',
+  age: 35,
+  location: 'Toronto',
+  specialty: 'JavaScript',
+  favLanguage: 'French',
+  catchPhrase: 'You Can Do It!!!'
+});
+
+console.log('task 4', brit);
+console.log(brit.demo('HTML'));
+console.log(brit.grade({name: 'Joseph'}, 'Unit 1'));
+
+
 /*
   TASK 5
     - Write a Student class extending Lambdasian.
@@ -158,9 +195,39 @@ class Instructor {
         + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
         + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
 */
-class Student {
-   
+
+class Student extends Lambdasian {
+   constructor(obj) {
+     super(obj);
+     this.previousBackground = obj.previousBackground;
+     this.className = obj.className;
+     this.favSubjects = obj.favSubjects;
+   }
+   listSubjects() {
+    return `Loving ${this.favSubjects[0]}, ${this.favSubjects[1]}, ${this.favSubjects[2]}, ${this.favSubjects[3]}, and ${this.favSubjects[4]}.`;
+   }
+   PRAssignment(subject) {
+    return `${this.name} has submitted a PR for ${subject}.`;
+   }
+   sprintChallenge(subject) {
+    return `${this.name} has begun sprint challenge on ${subject}.`;
+   }
 }
+
+const joseph = new Student({
+  name: 'Joseph',
+  age: 21,
+  location: 'State College',
+  previousBackground: 'Penn State AE Student',
+  className: 'WEB52',
+  favSubjects: ['HTML', 'CSS', 'JavaScript', 'React', 'Three.js']
+});
+
+console.log('task 5', joseph);
+console.log(joseph.listSubjects());
+console.log(joseph.PRAssignment('JS'));
+console.log(joseph.sprintChallenge('HTML & CSS'));
+
 
 /*
   TASK 6
@@ -175,9 +242,12 @@ class Student {
         + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
+
 class ProjectManager {
    
 }
+
+
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
