@@ -171,7 +171,7 @@ const brit = new Instructor({
   age: 35,
   location: 'Toronto',
   specialty: 'JavaScript',
-  favLanguage: 'French',
+  favLanguage: 'Python',
   catchPhrase: 'You Can Do It!!!'
 });
 
@@ -243,9 +243,36 @@ console.log(joseph.sprintChallenge('HTML & CSS'));
         + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
 */
 
-class ProjectManager {
-   
+class ProjectManager extends Instructor {
+   constructor(obj) {
+     super(obj);
+     this.gradClassName = obj.gradClassName;
+     this.favInstructor = obj.favInstructor;
+   }
+   standUp(slackChannel) {
+    return `${this.name} announces to ${slackChannel}, @channel standy times!`;
+   }
+   debugsCode(studentObj, subject) {
+    return `${this.name} debugs ${studentObj.name}'s code on ${subject}.`;
+   }
 }
+
+const adam = new ProjectManager({
+  name: 'Adam',
+  age: 55,
+  location: 'Kansas City',
+  specialty: 'Managing Tasks',
+  favLanguage: 'English',
+  catchPhrase: 'I can fix this!',
+  gradClassName: 'CS1',
+  favInstructor: 'Brit'
+});
+
+console.log('task 6', adam);
+console.log(adam.name);
+console.log(adam.specialty);
+console.log(adam.standUp('WEB52'));
+console.log(adam.debugsCode({name: 'Harold'}, 'React'));
 
 
 /*
