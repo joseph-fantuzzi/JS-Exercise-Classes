@@ -202,6 +202,7 @@ class Student extends Lambdasian {
      this.previousBackground = obj.previousBackground;
      this.className = obj.className;
      this.favSubjects = obj.favSubjects;
+     this.currentGrade = obj.currentGrade;
    }
    listSubjects() {
     return `Loving ${this.favSubjects[0]}, ${this.favSubjects[1]}, ${this.favSubjects[2]}, ${this.favSubjects[3]}, and ${this.favSubjects[4]}.`;
@@ -220,13 +221,41 @@ const joseph = new Student({
   location: 'State College',
   previousBackground: 'Penn State AE Student',
   className: 'WEB52',
-  favSubjects: ['HTML', 'CSS', 'JavaScript', 'React', 'Three.js']
+  favSubjects: ['HTML', 'CSS', 'JavaScript', 'React', 'Three.js'],
+  currentGrade: 100
 });
 
 console.log('task 5', joseph);
 console.log(joseph.listSubjects());
 console.log(joseph.PRAssignment('JS'));
 console.log(joseph.sprintChallenge('HTML & CSS'));
+
+
+Instructor.prototype.studentGrader = function(studentObj) {
+  let randomNum = Math.floor(Math.random() * 21);
+  if (randomNum <= 10) {
+    studentObj.currentGrade = studentObj.currentGrade + randomNum;
+    } else {
+    studentObj.currentGrade = studentObj.currentGrade - randomNum;
+  }
+  return studentObj.currentGrade;
+}
+
+Student.prototype.graduate = function(instructorObj, studentObj) {
+  if(this.currentGrade > 70) {
+    return 'You graduate from BloomTech!';
+  } else {
+    return instructorObj.studentGrader(studentObj);
+  }
+}
+
+console.log('Stretch');
+console.log(brit.studentGrader(joseph));
+
+console.log('Stretch')
+console.log(joseph.graduate(brit, joseph));
+
+console.log(joseph);
 
 
 /*
@@ -278,7 +307,8 @@ console.log(adam.debugsCode({name: 'Harold'}, 'React'));
 /*
   STRETCH PROBLEM (no tests!)
     - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+    - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or 
+      subtract points to a student's grade. _Math.random_ will help.
     - Add a graduate method to a student.
       + This method, when called, will check the grade of the student and see if they're ready to graduate from BloomTech
       + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
